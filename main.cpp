@@ -80,8 +80,6 @@ void takeInput()
 		{
 			input = compInput();
 			cout << "Cominput = " << input << endl;
-			string c ;
-			cin >> c;
 		}
 		if(board[(input-1)/3][((input%3)+2)%3] == "X" || board[(input-1)/3][((input%3)+2)%3] == "O")
 		{
@@ -101,7 +99,7 @@ int compInput()
 {
 	switch (level) {
 	case 1:
-		return  (rand() % 9)+1; // no intelligence
+
 		break;
 	case 2:
 		for(int i=0;i<3;i++)
@@ -114,12 +112,12 @@ int compInput()
 			else if( board[i][1] == "X" && board[i][2] == board[i][1])
 			{
 				if (board[i][3] != "O")
-				return ((i*3)+(0+1));
+					return ((i*3)+(0+1));
 			}
 			else if( board[i][0] == "X" && board[i][0] == board[i][2])
 			{
 				if (board[i][1] != "O")
-				return ((i*3)+(1+1));
+					return ((i*3)+(1+1));
 			}
 
 		}
@@ -128,23 +126,53 @@ int compInput()
 			if( board[1][i] == "X" && board[0][i] == board[1][i])
 			{
 				if (board[2][i] != "O")
-				return ((2*3)+(i+1));
+					return ((2*3)+(i+1));
 			}
 			else if( board[1][i] == "X" && board[2][i] == board[1][i])
 			{
 				if (board[0][i] != "O")
-				return ((0*3)+(i+1));
+					return ((0*3)+(i+1));
 			}
 			else if( board[0][i] == "X" && board[0][i] == board[2][i])
 			{
 				if (board[1][i] != "O")
-				return ((i*3)+(1+1));
+					return ((i*3)+(1+1));
 			}
-
 		}
-		return  (rand() % 9)+1; // no intelligence
+		if( board[1][1] == "X" && board[0][0] == board[1][1])
+		{
+			if (board[2][2] != "O")
+				return (9);
+		}
+		else if( board[1][1] == "X" && board[2][2] == board[1][1])
+		{
+			if (board[0][0] != "O")
+				return (1);
+		}
+		else if( board[0][0] == "X" && board[0][0] == board[2][2])
+		{
+			if (board[1][1] != "O")
+				return (5);
+		}
+		if( board[1][1] == "X" && board[0][2] == board[1][1])
+		{
+			if (board[2][0] != "O")
+				return (7);
+		}
+		else if( board[1][1] == "X" && board[2][0] == board[1][1])
+		{
+			if (board[0][2] != "O")
+				return (3);
+		}
+		else if( board[2][0] == "X" && board[2][0] == board[0][2])
+		{
+			if (board[1][1] != "O")
+				return (5);
+		}
+
 		break;
 	}
+	return  (rand() % 9)+1; // no intelligence
 }
 
 string whoWon()
