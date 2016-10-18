@@ -7,6 +7,7 @@
 //============================================================================
 
 #include <iostream>
+#include<conio.h>
 #include <string>
 #include <stdlib.h>     /* srand, rand */
 #include <ctype.h>
@@ -27,7 +28,7 @@ string player = "X" ;
 int input= -1;
 string uInput = "";
 string winner= "*";
-int level =1;
+int level =2;
 
 
 
@@ -78,6 +79,9 @@ void takeInput()
 		else
 		{
 			input = compInput();
+			cout << "Cominput = " << input << endl;
+			string c ;
+			cin >> c;
 		}
 		if(board[(input-1)/3][((input%3)+2)%3] == "X" || board[(input-1)/3][((input%3)+2)%3] == "O")
 		{
@@ -95,9 +99,52 @@ void takeInput()
 
 int compInput()
 {
-	return  (rand() % 9)+1; // no intelligence
+	switch (level) {
+	case 1:
+		return  (rand() % 9)+1; // no intelligence
+		break;
+	case 2:
+		for(int i=0;i<3;i++)
+		{
+			if( board[i][1] == "X" && board[i][0] == board[i][1])
+			{
+				if (board[i][2] != "O")
+					return ((i*3)+(2+1));
+			}
+			else if( board[i][1] == "X" && board[i][2] == board[i][1])
+			{
+				if (board[i][3] != "O")
+				return ((i*3)+(0+1));
+			}
+			else if( board[i][0] == "X" && board[i][0] == board[i][2])
+			{
+				if (board[i][1] != "O")
+				return ((i*3)+(1+1));
+			}
 
+		}
+		for(int i=0;i<3;i++)
+		{
+			if( board[1][i] == "X" && board[0][i] == board[1][i])
+			{
+				if (board[2][i] != "O")
+				return ((2*3)+(i+1));
+			}
+			else if( board[1][i] == "X" && board[2][i] == board[1][i])
+			{
+				if (board[0][i] != "O")
+				return ((0*3)+(i+1));
+			}
+			else if( board[0][i] == "X" && board[0][i] == board[2][i])
+			{
+				if (board[1][i] != "O")
+				return ((i*3)+(1+1));
+			}
 
+		}
+		return  (rand() % 9)+1; // no intelligence
+		break;
+	}
 }
 
 string whoWon()
@@ -159,4 +206,5 @@ int main(void) {
 		togglePlayer();
 	}
 	printResults();
+	//getch();
 }
